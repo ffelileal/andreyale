@@ -2009,5 +2009,85 @@
             updateMessagesDisplay();
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9704ca5981607f2d',t:'MTc1NTM4Nzc3MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+  import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA4Zk94J47TUY5qHqn_2yHEVqg_HgBP1Mo",
+    authDomain: "boda-ale-andre.firebaseapp.com",
+    projectId: "boda-ale-andre",
+    storageBucket: "boda-ale-andre.appspot.com", // ✅ corregido
+    messagingSenderId: "127085961727",
+    appId: "1:127085961727:web:fe0bef66326ddeeedf87ca",
+    measurementId: "G-SR3QJR4ZCC"
+  };
+
+  // Inicializar Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  // 📸 Función para subir foto
+  async function uploadPhoto(file, userName, message) {
+    const storageRef = ref(storage, "photos/" + Date.now() + "-" + file.name);
+    await uploadBytes(storageRef, file);
+
+    const url = await getDownloadURL(storageRef);
+    await addDoc(collection(db, "photos"), {
+      name: userName || "Invitado",
+      message: message || "",
+      url,
+      timestamp: serverTimestamp()
+    });
+  }
+
+  // 👀 Escuchar fotos en tiempo real
+  function listenPhotos() {
+    const q = query(collection(db, "photos"), orderBy("timestamp", "desc"));
+    onSnapshot(q, (snapshot) => {
+      const photos = snapshot.docs.map(doc => doc.data());
+      renderGallery(photos);
+    });
+  }
+
+  // 🎨 Renderizar galería
+  function renderGallery(photos) {
+    const grid = document.getElementById("photoGrid");
+    grid.innerHTML = "";
+    photos.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "photo-card";
+      card.innerHTML = `
+        <img src="${p.url}" class="w-full h-full object-cover" />
+        <div class="absolute bottom-0 bg-black/60 text-white w-full p-2 text-sm">
+          <strong>${p.name}</strong> ${p.message}
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // Iniciar listeners al cargar la página
+  document.addEventListener("DOMContentLoaded", () => {
+    listenPhotos();
+  });
+
+  // Conectar con tu botón de subir (ejemplo)
+  window.uploadPhotos = async function () {
+    const fileInput = document.getElementById("fileInput");
+    const userName = document.getElementById("uploaderName").value;
+    const message = document.getElementById("photoMessage").value;
+
+    for (const file of fileInput.files) {
+      await uploadPhoto(file, userName, message);
+    }
+
+    alert("Fotos subidas ✅");
+    fileInput.value = "";
+  };
+</script>
+
+</body>
 </html>
