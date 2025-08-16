@@ -261,13 +261,13 @@
             
             <div class="flex flex-wrap justify-center gap-4 text-sm">
                 <div class="glass-effect rounded-full px-6 py-3">
-                    <span class="mr-2">📅</span>15 de Diciembre, 2024
+                    <span class="mr-2">📅</span>6 de Septiembre, 2025
                 </div>
                 <div class="glass-effect rounded-full px-6 py-3">
                     <span class="mr-2">🕕</span>18:00 hs
                 </div>
                 <div class="glass-effect rounded-full px-6 py-3">
-                    <span class="mr-2">📍</span>Salón Los Jardines
+                    <span class="mr-2">📍</span>Veneto Village
                 </div>
             </div>
         </div>
@@ -735,8 +735,8 @@
         let userDatabase = JSON.parse(localStorage.getItem('userDatabase') || '[]');
         let albumDatabase = JSON.parse(localStorage.getItem('albumDatabase') || '[]');
 
-        // Wedding date (December 15, 2024 at 6:00 PM)
-        const weddingDate = new Date('2024-12-15T18:00:00').getTime();
+        // Wedding date (September 6, 2025 at 6:00 PM)
+        const weddingDate = new Date('2025-09-06T18:00:00').getTime();
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
@@ -1980,21 +1980,14 @@
 
 
         function loadSampleData() {
+            // Start with completely empty databases
             if (globalPhotoDatabase.length === 0) {
-                const samplePhotos = [
-                    
-                ];
-                
-                globalPhotoDatabase = samplePhotos;
+                globalPhotoDatabase = [];
                 localStorage.setItem('weddingPhotos', JSON.stringify(globalPhotoDatabase));
             }
             
             if (globalMessageDatabase.length === 0) {
-                const sampleMessages = [
-                    
-                ];
-                
-                globalMessageDatabase = sampleMessages;
+                globalMessageDatabase = [];
                 localStorage.setItem('weddingMessages', JSON.stringify(globalMessageDatabase));
             }
             
@@ -2003,5 +1996,5 @@
             updateMessagesDisplay();
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9704bcc807917f30',t:'MTc1NTM4NzIxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9704c3e883457f2d',t:'MTc1NTM4NzUwNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
