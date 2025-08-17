@@ -3,2091 +3,406 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ale & Andre - Nuestro Día Especial</title>
+    <title>Ale & Andre - 6 de Septiembre</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        .font-dancing { font-family: 'Dancing Script', cursive; }
-        .font-poppins { font-family: 'Poppins', sans-serif; }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #000000 100%);
+        :root {
+            --warm-burgundy: #722F37;
+            --deep-rose: #3D1A22;
+            --midnight-purple: #2C1218;
+            --soft-gold: #e7e4e2;
+            --champagne: #0000;
+            --blush-pink: #000;
         }
         
-        .romantic-gradient {
-            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 50%, #000000 100%);
-        }
-        
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .photo-card {
-            aspect-ratio: 4/3;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--warm-burgundy) 0%, var(--deep-rose) 30%, var(--midnight-purple) 70%, #1f1937 100%);
+            min-height: 100vh;
             position: relative;
+            overflow-x: hidden;
         }
         
-        .photo-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-        
-        .upload-zone {
-            border: 3px dashed #4b5563;
-            border-radius: 24px;
-            transition: all 0.3s ease;
-            background: linear-gradient(145deg, #374151, #1f2937);
-        }
-        
-        .upload-zone.dragover {
-            border-color: #f59e0b;
-            background: linear-gradient(145deg, #451a03, #78350f);
-            transform: scale(1.02);
-        }
-        
-        .floating-hearts {
+        /* Welcome Screen Styles */
+        .welcome-screen {
             position: fixed;
-            pointer-events: none;
-            z-index: 1000;
-        }
-        
-        @keyframes float-up {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-        }
-        
-        .heart {
-            animation: float-up 8s linear infinite;
-        }
-        
-        @keyframes fadeInUp {
-            0% { 
-                opacity: 0; 
-                transform: translateY(30px) scale(0.9); 
-            }
-            100% { 
-                opacity: 1; 
-                transform: translateY(0) scale(1); 
-            }
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        .new-item {
-            animation: fadeInUp 0.6s ease-out;
-        }
-        
-        .slideshow-container {
-            position: relative;
-            max-width: 100%;
-            margin: auto;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
-        }
-        
-        .slide {
-            display: none;
-            position: relative;
-        }
-        
-        .slide.active {
-            display: block;
-            animation: fadeInUp 0.5s ease-out;
-        }
-        
-        .slide img {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-        }
-        
-        .slide-caption {
-            position: absolute;
-            bottom: 0;
+            top: 0;
             left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            color: white;
-            padding: 30px;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--warm-burgundy) 0%, var(--deep-rose) 30%, var(--midnight-purple) 70%, #1f1937 100%);
+            display: flex;
+            flex-direction: column;
+            z-index: 9999;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            overflow-y: auto;
+        }
+        
+        .welcome-screen.hidden {
+            opacity: 0;
+            transform: scale(1.1);
+            pointer-events: none;
+        }
+        
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.8s ease-in;
+            scroll-behavior: smooth;
+        }
+        
+        .main-content.visible {
+            opacity: 1;
+        }
+        
+        .welcome-content {
             text-align: center;
+            padding: 2rem 1rem 6rem;
+            animation: welcomeSlideUp 1s ease-out;
+            max-width: 100%;
+            margin: 0 auto;
+            flex-grow: 1;
+        }
+        
+        @keyframes welcomeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .enter-button {
+            background: linear-gradient(135deg, var(--soft-gold), #fbbf24);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            color: #110908;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+            position: sticky;
+            bottom: 2rem;
+            margin: 2rem auto 0;
+            display: block;
+            width: calc(100% - 4rem);
+            max-width: 24rem;
+            z-index: 10;
+        }
+        
+        .enter-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
+        }
+        
+        .playfair {
+            font-family: 'Playfair Display', serif;
         }
         
         .glass-effect {
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .countdown-item {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 1rem;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
+        .hover-lift:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
         
-        .shimmer {
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            background-size: 200% 100%;
-            animation: shimmer 2s infinite;
+        .text-gradient {
+            background: linear-gradient(135deg, var(--soft-gold), #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-
-        .admin-photo-item {
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
+        
+        .accent-border {
+            border-left: 4px solid var(--soft-gold);
         }
-
-        .admin-photo-item.selected {
-            border-color: #3b82f6;
-            background-color: #eff6ff;
-        }
-
-        .status-badge {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            padding: 4px 8px;
+        
+        .padlet-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(212, 175, 55, 0.3);
             border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
+            padding: 1rem;
+        }
+        
+        /* Emoji animation */
+        .emoji-float {
+            position: fixed;
+            font-size: 2rem;
+            pointer-events: none;
+            z-index: 1000;
+            animation: floatUp 4s ease-out forwards;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+        
+        .fade-in-page {
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
 
-        .status-approved { background: #10b981; color: white; }
-        .status-pending { background: #f59e0b; color: white; }
-        .status-rejected { background: #ef4444; color: white; }
-        .status-featured { background: #8b5cf6; color: white; }
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .welcome-content {
+                padding: 1.5rem 1rem 6rem;
+            }
+            
+            h1.playfair {
+                font-size: 3rem;
+            }
+            
+            .enter-button {
+                width: calc(100% - 2rem);
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
-<body class="font-poppins bg-gradient-to-br from-gray-900 via-black to-gray-800 min-h-screen text-white">
-    <!-- Floating Hearts Animation -->
-    <div class="floating-hearts" id="floatingHearts"></div>
-    
-    <!-- Status Indicators -->
-    <div class="fixed top-4 right-4 z-40 space-y-2">
-        <div id="syncStatus" class="glass-effect px-4 py-2 rounded-full text-sm font-medium text-gray-700 opacity-0 transform translate-x-full transition-all duration-300">
-            <span id="syncText">Conectado</span>
-            <span id="syncIcon" class="ml-2">✅</span>
-        </div>
-        <div class="glass-effect px-4 py-2 rounded-full text-sm font-medium text-gray-700">
-            <span id="photoCount">0</span> fotos compartidas
-        </div>
-        <div class="glass-effect px-4 py-2 rounded-full text-sm font-medium text-gray-700">
-            👥 <span id="onlineUsers">1</span> invitados conectados
-        </div>
-        <div class="glass-effect px-4 py-2 rounded-full text-sm font-medium text-green-700">
-            🔄 Sincronización en tiempo real
-        </div>
-    </div>
-
-    <!-- Admin Login Screen -->
-    <div id="adminLoginScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/90 backdrop-blur-sm hidden">
-        <div class="bg-white rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl">
-            <div class="text-center mb-8">
-                <h2 class="font-dancing text-4xl text-gray-800 mb-2">Panel de Administración</h2>
-                <p class="text-gray-600">Acceso exclusivo para administradores</p>
-            </div>
-            
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Usuario</label>
-                    <input type="text" id="adminUser" placeholder="admin" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
-                    <input type="password" id="adminPassword" placeholder="••••••••" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                </div>
-            </div>
-            
-            <div class="mt-6 space-y-3">
-                <button onclick="adminLogin()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition-all duration-300">
-                    Iniciar Sesión 🔐
-                </button>
-                <button onclick="closeAdminLogin()" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 py-3 rounded-xl font-semibold transition-all duration-300">
-                    Cancelar
-                </button>
-            </div>
-            
-            <div class="mt-4 text-xs text-gray-500 text-center">
-                <p>Credenciales de prueba:</p>
-                <p>Usuario: <strong>admin</strong> | Contraseña: <strong>aleandre2024</strong></p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Header -->
-    <header class="gradient-bg text-white py-16 px-4">
-        <div class="max-w-6xl mx-auto text-center">
-            <h1 class="font-dancing text-8xl md:text-9xl font-bold mb-6 drop-shadow-lg">Ale & Andre</h1>
-            <p class="text-2xl md:text-3xl font-light mb-8 opacity-90">Nuestro Día Especial</p>
-            
-            <!-- Countdown -->
+<body class="text-white">
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="welcome-screen">
+        <div class="welcome-content">
             <div class="mb-8">
-                <p class="text-lg mb-4 opacity-80">Faltan para el gran día:</p>
-                <div class="flex justify-center space-x-4" id="countdown">
-                    <div class="countdown-item">
-                        <div class="text-3xl font-bold" id="days">0</div>
-                        <div class="text-sm opacity-80">Días</div>
+                <div class="w-24 h-24 mx-auto mb-6 rounded-full glass-effect flex items-center justify-center">
+                    <span class="text-4xl">💒</span>
+                </div>
+            </div>
+            
+            <h1 class="playfair text-6xl font-bold mb-4 text-gradient">
+                Ale & Andre
+            </h1>
+            <p class="text-2xl text-amber-100 mb-2 font-medium">
+                6 de septiembre, 2025
+            </p>
+            
+            <div class="glass-effect rounded-2xl p-6 mb-8 max-w-sm mx-auto">
+                <p class="text-lg text-slate-200 mb-4">
+                    ¡Bienvenidos a nuestra celebración!
+                </p>
+                <p class="text-sm text-slate-300 mb-6">
+                    Preparamos algo especial para compartir juntos cada momento de esta noche única
+                </p>
+            </div>
+            
+            <div class="glass-effect rounded-2xl p-6 shadow-lg border border-amber-500/20 mb-8 max-w-sm mx-auto">
+                <h3 class="text-xl font-semibold text-amber-200 mb-4">¿Cómo participar?</h3>
+                <div class="space-y-4 text-left">
+                    <div class="flex items-start space-x-3">
+                        <div class="bg-rose-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">1</div>
+                        <div>
+                            <h4 class="font-semibold text-white text-sm">Sube tus fotos</h4>
+                            <p class="text-slate-300 text-xs">Desde tu celular o cámara, sube las fotos del momento</p>
+                        </div>
                     </div>
-                    <div class="countdown-item">
-                        <div class="text-3xl font-bold" id="hours">0</div>
-                        <div class="text-sm opacity-80">Horas</div>
+                    <div class="flex items-start space-x-3">
+                        <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">2</div>
+                        <div>
+                            <h4 class="font-semibold text-white text-sm">Aparecen en pantalla</h4>
+                            <p class="text-slate-300 text-xs">Verás tus fotos en la pantalla grande del salón</p>
+                        </div>
                     </div>
-                    <div class="countdown-item">
-                        <div class="text-3xl font-bold" id="minutes">0</div>
-                        <div class="text-sm opacity-80">Minutos</div>
-                    </div>
-                    <div class="countdown-item">
-                        <div class="text-3xl font-bold" id="seconds">0</div>
-                        <div class="text-sm opacity-80">Segundos</div>
+                    <div class="flex items-start space-x-3">
+                        <div class="bg-orange-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">3</div>
+                        <div>
+                            <h4 class="font-semibold text-white text-sm">Recuerdos eternos</h4>
+                            <p class="text-slate-300 text-xs">Todas las fotos quedan guardadas para siempre</p>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <div class="flex flex-wrap justify-center gap-4 text-sm">
-                <div class="glass-effect rounded-full px-6 py-3">
-                    <span class="mr-2">📅</span>6 de Septiembre, 2025
-                </div>
-                <div class="glass-effect rounded-full px-6 py-3">
-                    <span class="mr-2">🕕</span>18:00 hs
-                </div>
-                <div class="glass-effect rounded-full px-6 py-3">
-                    <span class="mr-2">📍</span>Veneto Village
-                </div>
-            </div>
+            <button onclick="enterSite()" class="enter-button">
+                ✨ Entrar a la Celebración ✨
+            </button>
         </div>
-    </header>
-
-    <!-- Welcome Message -->
-    <section class="py-16 px-4">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="font-dancing text-5xl text-gray-800 mb-6">¡Bienvenidos a nuestra celebración!</h2>
-            <p class="text-xl text-gray-600 leading-relaxed mb-8">
-                Queridos familiares y amigos, queremos que sean parte de cada momento especial de nuestro día. 
-                Compartan sus fotos y recuerdos con nosotros para que juntos creemos un álbum único e inolvidable.
-            </p>
-            <div class="bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gray-700">
-                <h3 class="text-2xl font-semibold text-white mb-4">¿Cómo participar?</h3>
-                <div class="grid md:grid-cols-3 gap-6 text-left">
-                    <div class="flex items-start space-x-3">
-                        <div class="bg-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">1</div>
-                        <div>
-                            <h4 class="font-semibold text-white">Sube tus fotos</h4>
-                            <p class="text-gray-300 text-sm">Desde tu celular o cámara, sube las fotos del momento</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start space-x-3">
-                        <div class="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">2</div>
-                        <div>
-                            <h4 class="font-semibold text-white">Aparecen en pantalla</h4>
-                            <p class="text-gray-300 text-sm">Verás tus fotos en la pantalla grande del salón</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start space-x-3">
-                        <div class="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">3</div>
-                        <div>
-                            <h4 class="font-semibold text-white">Recuerdos eternos</h4>
-                            <p class="text-gray-300 text-sm">Todas las fotos quedan guardadas para siempre</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Navigation -->
-    <nav class="bg-gray-900/90 backdrop-blur-md shadow-lg sticky top-0 z-30 border-b border-gray-700">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex justify-center space-x-2 md:space-x-8 py-4 overflow-x-auto">
-                <button onclick="showSection('upload')" class="nav-btn px-4 md:px-6 py-3 rounded-full font-medium transition-all duration-300 bg-pink-600 text-white hover:bg-pink-700 whitespace-nowrap">
-                    📸 Subir Fotos
-                </button>
-                <button onclick="showSection('gallery')" class="nav-btn px-4 md:px-6 py-3 rounded-full font-medium transition-all duration-300 text-gray-300 hover:bg-gray-700 whitespace-nowrap">
-                    🖼️ Galería
-                </button>
-                <button onclick="showSection('slideshow')" class="nav-btn px-4 md:px-6 py-3 rounded-full font-medium transition-all duration-300 text-gray-300 hover:bg-gray-700 whitespace-nowrap">
-                    📺 Slideshow
-                </button>
-                <button onclick="showSection('messages')" class="nav-btn px-4 md:px-6 py-3 rounded-full font-medium transition-all duration-300 text-gray-300 hover:bg-gray-700 whitespace-nowrap">
-                    💌 Dedicatorias
-                </button>
-                <button onclick="showSection('admin')" class="nav-btn px-4 md:px-6 py-3 rounded-full font-medium transition-all duration-300 text-gray-300 hover:bg-gray-700 whitespace-nowrap">
-                    ⚙️ Admin
-                </button>
-            </div>
-        </div>
-    </nav>
+    </div>
 
     <!-- Main Content -->
-    <main class="max-w-6xl mx-auto px-4 py-8">
-        
-        <!-- Upload Section -->
-        <section id="upload-section" class="section-content">
-            <div class="bg-gray-900/90 backdrop-blur-md rounded-3xl shadow-2xl p-8 mb-8 border border-gray-700">
-                <h2 class="font-dancing text-5xl text-center text-white mb-8">Comparte tus Momentos Especiales</h2>
-                
-                <!-- Upload Zone -->
-                <div class="upload-zone p-12 text-center mb-8 bg-gray-800/50 border-gray-600" id="uploadZone">
-                    <div class="mb-6">
-                        <svg class="mx-auto h-20 w-20 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                        </svg>
-                    </div>
-                    <p class="text-xl text-gray-300 mb-4">Arrastra tus fotos aquí o</p>
-                    <button onclick="document.getElementById('fileInput').click()" class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
-                        Seleccionar Fotos
-                    </button>
-                    <input type="file" id="fileInput" multiple accept="image/*" class="hidden" onchange="handleFileSelect(event)">
-                    <p class="text-sm text-gray-400 mt-6">Formatos: JPG, PNG, GIF • Máximo 10MB por foto</p>
-                </div>
-
-                <!-- Photo Preview -->
-                <div id="photoPreview" class="hidden mb-8">
-                    <h3 class="text-xl font-semibold text-white mb-4">Vista previa de tus fotos:</h3>
-                    <div id="previewGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6"></div>
-                </div>
-
-                <!-- Upload Form -->
-                <div class="grid md:grid-cols-2 gap-6 mb-8">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-2">Tu nombre (opcional)</label>
-                        <input type="text" id="uploaderName" placeholder="Ej: María González" class="w-full px-4 py-3 border border-gray-600 bg-gray-800 text-white rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-2">Mensaje especial (opcional)</label>
-                        <input type="text" id="photoMessage" placeholder="Ej: ¡Qué hermosa pareja!" class="w-full px-4 py-3 border border-gray-600 bg-gray-800 text-white rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent">
+    <div id="main-content" class="main-content">
+        <!-- Header Section -->
+        <header class="px-6 py-12 text-center">
+            <div class="max-w-md mx-auto">
+                <div class="mb-8">
+                    <div class="w-20 h-20 mx-auto mb-6 rounded-full glass-effect flex items-center justify-center">
+                        <span class="text-3xl">💍</span>
                     </div>
                 </div>
-
-                <!-- Upload Button -->
-                <button id="uploadBtn" onclick="uploadPhotos()" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg">
-                    Subir Fotos 💕
-                </button>
-
-                <!-- Upload Status -->
-                <div id="uploadStatus" class="mt-6 text-center hidden"></div>
+                <section class="px-6 pb-8">
+                    <div class="max-w-md mx-auto text-center">
+                        <h2 class="playfair text-4xl text-gradient mb-6">¡Bienvenidos a nuestra celebración!</h2>
+                        <p class="text-base text-slate-200 leading-relaxed mb-8">
+                            Queridos familiares y amigos, queremos que sean parte de cada momento especial de nuestro día. 
+                            Compartan sus fotos y recuerdos con nosotros para que juntos creemos un álbum único e inolvidable.
+                        </p>
+                    </div>
+                </section>
             </div>
-        </section>
+        </header>
 
-        <!-- Gallery Section -->
-        <section id="gallery-section" class="section-content hidden">
-            <div class="bg-gray-900/90 backdrop-blur-md rounded-3xl shadow-2xl p-8 border border-gray-700">
-                <h2 class="font-dancing text-5xl text-center text-white mb-8">Galería de Momentos</h2>
+        <!-- Photo Upload Section -->
+        <section class="px-6 pt-0 pb-8">
+            <div class="max-w-md mx-auto">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-semibold mb-4 text-gradient">
+                        Subí tus fotos aquí 📸
+                    </h3>
+                    <p class="text-base text-slate-300 mb-6">
+                        Podés sacar una foto o subirla desde tu galería. ¡Queremos ver cada momento de esta noche única!
+                    </p>
+                </div>
                 
-                <div class="photo-grid" id="photoGrid"></div>
+                <div class="padlet-embed" style="border:1px solid rgba(0,0,0,0.1);border-radius:2px;box-sizing:border-box;overflow:hidden;position:relative;width:100%;background:#F4F4F4"><p style="padding:0;margin:0">
+                    <iframe src="https://padlet.com/embed/m7vkwfpibcjjgnjq" frameborder="0" allow="camera;microphone;geolocation;display-capture;clipboard-write" style="width:100%;height:608px;display:block;padding:0;margin:0">
+                    </iframe>
+                    </p>
+                <div style="display:flex;align-items:center;justify-content:end;margin:0;height:28px"><a href="https://padlet.com?ref=embed" style="display:block;flex-grow:0;margin:0;border:none;padding:0;text-decoration:none" target="_blank"><div style="display:flex;align-items:center;"><img src="https://padlet.net/embeds/made_with_padlet_2022.png" width="114" height="28" style="padding:0;margin:0;background:0 0;border:none;box-shadow:none" alt="Hecho con Padlet">
+                </div>
+                </a>
+                </div>
+                </div>
                 
-                <div class="text-center mt-12">
-                    <div class="bg-gray-800/80 rounded-2xl p-8 border border-gray-600">
-                        <h3 class="text-2xl font-semibold text-white mb-4">¡Las fotos aparecen aquí automáticamente!</h3>
-                        <p class="text-gray-300">Cada vez que alguien sube una foto, aparece instantáneamente en esta galería y en la pantalla grande del salón.</p>
+                <div class="text-center mt-6">
+                    <div class="glass-effect rounded-xl p-4">
+                        <p class="text-sm text-amber-100">
+                            💡 Tip: Tocá el "+" para agregar tu foto al instante
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slideshow Section -->
-        <section id="slideshow-section" class="section-content hidden">
-            <div class="bg-gray-900/90 backdrop-blur-md rounded-3xl shadow-2xl p-8 border border-gray-700">
-                <h2 class="font-dancing text-5xl text-center text-white mb-8">Slideshow en Vivo</h2>
-                
-                <div class="slideshow-container bg-gray-800/50 border border-gray-600" id="slideshowContainer">
-                    <div class="text-center py-32">
-                        <div class="mb-6">
-                            <svg class="animate-pulse h-16 w-16 text-pink-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
+        <!-- Additional Info -->
+        <section class="px-6 py-8">
+            <div class="max-w-md mx-auto">
+                <div class="grid gap-4">
+                    <div class="glass-effect rounded-xl p-6 hover-lift">
+                        <div class="flex items-center mb-3">
+                            <span class="text-2xl mr-3">🎉</span>
+                            <h4 class="text-lg font-medium text-amber-200">Compartí la alegría</h4>
                         </div>
-                        <p class="text-gray-300 text-xl mb-4">El slideshow comenzará cuando se suban las primeras fotos</p>
-                        <p class="text-gray-400">¡Perfecto para mostrar en la pantalla grande durante la fiesta!</p>
+                        <p class="text-sm text-slate-300">
+                            En el Civil, en Cada sonrisa, en cada baile, en cada brindis... ¡Todo cuenta!
+                        </p>
                     </div>
-                </div>
-                
-                <div class="flex justify-center space-x-4 mt-8">
-                    <button onclick="toggleSlideshow()" id="slideshowToggle" class="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105">
-                        ▶️ Iniciar Slideshow
-                    </button>
-                    <button onclick="toggleFullscreen()" class="bg-purple-500 hover:bg-purple-600 text-white px-8 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105">
-                        🔍 Pantalla Completa
-                    </button>
+                    
+                    <div class="glass-effect rounded-xl p-6 hover-lift">
+                        <div class="flex items-center mb-3">
+                            <span class="text-2xl mr-3">📱</span>
+                            <h4 class="text-lg font-medium text-rose-300">Súper fácil</h4>
+                        </div>
+                        <p class="text-sm text-slate-300">
+                            Desde tu celular, en segundos. Sin apps, sin complicaciones.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Messages Section -->
-        <section id="messages-section" class="section-content hidden">
-            <div class="bg-gray-900/90 backdrop-blur-md rounded-3xl shadow-2xl p-8 border border-gray-700">
-                <h2 class="font-dancing text-5xl text-center text-white mb-8">Dedicatorias para los Novios</h2>
-                
-                <!-- Message Form -->
-                <div class="mb-8 p-8 bg-gray-800/80 rounded-2xl border border-gray-600">
-                    <h3 class="text-2xl font-semibold text-white mb-6">Deja tu mensaje especial</h3>
-                    <div class="grid md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-300 mb-2">Tu nombre</label>
-                            <input type="text" id="messageName" placeholder="Tu nombre completo" class="w-full px-4 py-3 border border-gray-600 bg-gray-700 text-white rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-300 mb-2">Tipo de mensaje</label>
-                            <select id="messageType" class="w-full px-4 py-3 border border-gray-600 bg-gray-700 text-white rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent">
-                                <option value="wish">Deseo de felicidad</option>
-                                <option value="memory">Recuerdo especial</option>
-                                <option value="advice">Consejo matrimonial</option>
-                                <option value="congratulation">Felicitación</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-300 mb-2">Tu mensaje</label>
-                        <textarea id="messageText" placeholder="Escribe aquí tu mensaje para Ale y Andre..." rows="4" class="w-full px-4 py-3 border border-gray-600 bg-gray-700 text-white rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent"></textarea>
-                    </div>
-                    <button onclick="addMessage()" class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-8 py-3 rounded-xl font-medium transition-all duration-300 transform hover:scale-105">
-                        Enviar Mensaje 💌
-                    </button>
-                </div>
-
-                <!-- Messages Display -->
-                <div id="messagesContainer" class="space-y-6">
-                    <!-- Sample messages will be loaded here -->
+        <!-- Footer -->
+        <footer class="px-6 py-12 text-center">
+            <div class="max-w-md mx-auto">
+                <div class="glass-effect rounded-2xl p-8">
+                    <p class="text-lg font-medium text-amber-100 mb-2">
+                        Gracias por acompañarnos en este día tan especial
+                    </p>
+                    <p class="playfair text-xl text-gradient">
+                        Ale & Andre ❤️
+                    </p>
                 </div>
             </div>
-        </section>
-
-        <!-- Admin Section -->
-        <section id="admin-section" class="section-content hidden">
-            <!-- Admin Dashboard -->
-            <div id="adminDashboard" class="space-y-8 hidden">
-                <!-- Header -->
-                <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-3xl p-8">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <h2 class="font-dancing text-5xl mb-2">Panel de Administración</h2>
-                            <p class="text-blue-100">Gestión completa del casamiento de Ale & Andre</p>
-                        </div>
-                        <button onclick="adminLogout()" class="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-xl font-medium transition-all duration-300">
-                            Cerrar Sesión 🚪
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Stats Dashboard -->
-                <div class="grid md:grid-cols-4 gap-6">
-                    <div class="bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-lg">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h3 class="text-3xl font-bold text-blue-600" id="adminTotalPhotos">0</h3>
-                                <p class="text-gray-600">Fotos Totales</p>
-                            </div>
-                            <div class="bg-blue-100 p-3 rounded-full">
-                                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-lg">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h3 class="text-3xl font-bold text-green-600" id="adminApprovedPhotos">0</h3>
-                                <p class="text-gray-600">Fotos Aprobadas</p>
-                            </div>
-                            <div class="bg-green-100 p-3 rounded-full">
-                                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-lg">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h3 class="text-3xl font-bold text-yellow-600" id="adminPendingPhotos">0</h3>
-                                <p class="text-gray-600">Pendientes</p>
-                            </div>
-                            <div class="bg-yellow-100 p-3 rounded-full">
-                                <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-lg">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h3 class="text-3xl font-bold text-purple-600" id="adminActiveUsers">0</h3>
-                                <p class="text-gray-600">Usuarios Activos</p>
-                            </div>
-                            <div class="bg-purple-100 p-3 rounded-full">
-                                <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Admin Navigation -->
-                <div class="bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-lg">
-                    <div class="flex flex-wrap justify-center gap-4">
-                        <button onclick="showAdminTab('photos')" class="admin-tab-btn active px-6 py-3 rounded-xl font-medium transition-all duration-300 bg-blue-100 text-blue-700">
-                            📸 Gestión de Fotos
-                        </button>
-                        <button onclick="showAdminTab('moderation')" class="admin-tab-btn px-6 py-3 rounded-xl font-medium transition-all duration-300 text-gray-600 hover:bg-gray-100">
-                            🛡️ Moderación
-                        </button>
-                        <button onclick="showAdminTab('users')" class="admin-tab-btn px-6 py-3 rounded-xl font-medium transition-all duration-300 text-gray-600 hover:bg-gray-100">
-                            👥 Usuarios
-                        </button>
-                        <button onclick="showAdminTab('albums')" class="admin-tab-btn px-6 py-3 rounded-xl font-medium transition-all duration-300 text-gray-600 hover:bg-gray-100">
-                            📁 Álbumes
-                        </button>
-                        <button onclick="showAdminTab('analytics')" class="admin-tab-btn px-6 py-3 rounded-xl font-medium transition-all duration-300 text-gray-600 hover:bg-gray-100">
-                            📊 Análisis
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Photos Management Tab -->
-                <div id="admin-photos-tab" class="admin-tab-content bg-white/80 backdrop-blur-md rounded-2xl p-8 shadow-lg">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-2xl font-bold text-gray-800">Gestión de Fotos</h3>
-                        <div class="flex space-x-3">
-                            <button onclick="selectAllPhotos()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300">
-                                Seleccionar Todas
-                            </button>
-                            <button onclick="downloadSelectedPhotos()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300">
-                                Descargar Seleccionadas
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Filters -->
-                    <div class="flex flex-wrap gap-4 mb-6">
-                        <select id="photoStatusFilter" onchange="filterAdminPhotos()" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                            <option value="all">Todas las fotos</option>
-                            <option value="approved">Aprobadas</option>
-                            <option value="pending">Pendientes</option>
-                            <option value="rejected">Rechazadas</option>
-                            <option value="featured">Destacadas</option>
-                        </select>
-                        <input type="text" id="photoSearchInput" placeholder="Buscar por nombre o mensaje..." onkeyup="searchAdminPhotos()" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 flex-1 min-w-64">
-                    </div>
-
-                    <!-- Bulk Actions -->
-                    <div id="bulkActions" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                        <div class="flex items-center justify-between">
-                            <span class="text-blue-800 font-medium"><span id="selectedCount">0</span> fotos seleccionadas</span>
-                            <div class="flex space-x-2">
-                                <button onclick="bulkApprove()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300">
-                                    ✅ Aprobar
-                                </button>
-                                <button onclick="bulkReject()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300">
-                                    ❌ Rechazar
-                                </button>
-                                <button onclick="bulkFeature()" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300">
-                                    ⭐ Destacar
-                                </button>
-                                <button onclick="bulkDelete()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300">
-                                    🗑️ Eliminar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Photos List -->
-                    <div id="adminPhotosList" class="space-y-4"></div>
-                </div>
-
-                <!-- Moderation Tab -->
-                <div id="admin-moderation-tab" class="admin-tab-content hidden bg-white/80 backdrop-blur-md rounded-2xl p-8 shadow-lg">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Centro de Moderación</h3>
-                    
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
-                            <h4 class="text-lg font-semibold text-yellow-800 mb-4">⚠️ Fotos Pendientes de Revisión</h4>
-                            <div id="pendingModerationList" class="space-y-3"></div>
-                        </div>
-                        
-                        <div class="bg-red-50 border border-red-200 rounded-xl p-6">
-                            <h4 class="text-lg font-semibold text-red-800 mb-4">🚫 Acciones Recientes</h4>
-                            <div id="moderationHistory" class="space-y-3 max-h-64 overflow-y-auto"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Users Tab -->
-                <div id="admin-users-tab" class="admin-tab-content hidden bg-white/80 backdrop-blur-md rounded-2xl p-8 shadow-lg">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Gestión de Usuarios</h3>
-                    <div id="adminUsersList" class="space-y-4"></div>
-                </div>
-
-                <!-- Albums Tab -->
-                <div id="admin-albums-tab" class="admin-tab-content hidden bg-white/80 backdrop-blur-md rounded-2xl p-8 shadow-lg">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-2xl font-bold text-gray-800">Gestión de Álbumes</h3>
-                        <button onclick="createNewAlbum()" class="bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-xl font-medium transition-all duration-300">
-                            ➕ Crear Álbum
-                        </button>
-                    </div>
-                    <div id="adminAlbumsList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-                </div>
-
-                <!-- Analytics Tab -->
-                <div id="admin-analytics-tab" class="admin-tab-content hidden bg-white/80 backdrop-blur-md rounded-2xl p-8 shadow-lg">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Análisis y Estadísticas</h3>
-                    
-                    <div class="grid md:grid-cols-2 gap-6 mb-8">
-                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6">
-                            <h4 class="text-lg font-semibold text-blue-800 mb-4">📈 Actividad por Hora</h4>
-                            <div id="hourlyChart" class="h-48 flex items-end justify-between space-x-1"></div>
-                        </div>
-                        
-                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6">
-                            <h4 class="text-lg font-semibold text-green-800 mb-4">👥 Top Contribuyentes</h4>
-                            <div id="topContributors" class="space-y-3"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-purple-50 rounded-xl p-6">
-                        <h4 class="text-lg font-semibold text-purple-800 mb-4">📊 Resumen General</h4>
-                        <div id="generalStats" class="grid md:grid-cols-4 gap-4"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Non-Admin View -->
-            <div id="nonAdminView" class="bg-gray-900/90 backdrop-blur-md rounded-3xl shadow-2xl p-8 border border-gray-700">
-                <div class="text-center">
-                    <div class="mb-6">
-                        <svg class="mx-auto h-16 w-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                        </svg>
-                    </div>
-                    <h2 class="font-dancing text-4xl text-white mb-4">Panel de Administración</h2>
-                    <p class="text-gray-300 mb-8">Acceso restringido solo para administradores del evento</p>
-                    <button onclick="showAdminLogin()" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105">
-                        Iniciar Sesión como Administrador 🔐
-                    </button>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="gradient-bg text-white py-16 px-4 mt-16 border-t border-gray-700">
-        <div class="max-w-6xl mx-auto text-center">
-            <h3 class="font-dancing text-4xl mb-6">Gracias por ser parte de nuestro día especial</h3>
-            <p class="text-xl opacity-90 mb-8">Ale & Andre - Con amor infinito 💕</p>
-            <div class="grid md:grid-cols-3 gap-6 text-sm opacity-75">
-                <div class="glass-effect rounded-xl p-6 border border-gray-600">
-                    <h4 class="font-semibold mb-2">🔒 Seguridad</h4>
-                    <p>Todas las fotos se guardan de forma segura y privada</p>
-                </div>
-                <div class="glass-effect rounded-xl p-6 border border-gray-600">
-                    <h4 class="font-semibold mb-2">☁️ Almacenamiento</h4>
-                    <p>Tus recuerdos quedan guardados para siempre</p>
-                </div>
-                <div class="glass-effect rounded-xl p-6 border border-gray-600">
-                    <h4 class="font-semibold mb-2">📱 Compatibilidad</h4>
-                    <p>Funciona en celulares, tabletas y computadoras</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <script>
-        // Global variables
-        let selectedFiles = [];
-        let slideshowInterval;
-        let currentSlide = 0;
-        let isSlideshow = false;
-        let isAdminLoggedIn = false;
-        let selectedPhotos = new Set();
-        let currentAdminTab = 'photos';
-        
-        // Real-time sync variables
-        let lastSyncTimestamp = 0;
-        let syncChannel = new BroadcastChannel('wedding-sync');
-        let onlineUsers = new Set();
-        let myUserId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        
-        // Simulated shared database (using localStorage as shared storage simulation)
-        let globalPhotoDatabase = JSON.parse(localStorage.getItem('weddingPhotos') || '[]');
-        let globalMessageDatabase = JSON.parse(localStorage.getItem('weddingMessages') || '[]');
-        let moderationHistory = JSON.parse(localStorage.getItem('moderationHistory') || '[]');
-        let userDatabase = JSON.parse(localStorage.getItem('userDatabase') || '[]');
-        let albumDatabase = JSON.parse(localStorage.getItem('albumDatabase') || '[]');
-
-        // Wedding date (September 6, 2025 at 6:00 PM)
-        const weddingDate = new Date('2025-09-06T18:00:00').getTime();
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeFloatingHearts();
-            setupDragAndDrop();
-            loadSampleData();
-            updateCounters();
-            startCountdown();
-            initializeRealTimeSync();
-            showSyncStatus('Conectado - Sincronización en tiempo real activa', 'success');
-            initializeAdminData();
-            announceUserPresence();
+        // Function to enter the main site
+        function enterSite() {
+            const welcomeScreen = document.getElementById('welcome-screen');
+            const mainContent = document.getElementById('main-content');
             
-            // Hide status indicators after 5 seconds
+            welcomeScreen.classList.add('hidden');
+            
             setTimeout(() => {
-                const statusIndicators = document.querySelectorAll('#syncStatus, .glass-effect');
-                statusIndicators.forEach(indicator => {
-                    if (indicator.textContent.includes('fotos compartidas') || 
-                        indicator.textContent.includes('invitados conectados') || 
-                        indicator.textContent.includes('Sincronización en tiempo real')) {
-                        indicator.style.opacity = '0';
-                        indicator.style.transform = 'translateX(100%)';
-                    }
+                mainContent.classList.add('visible');
+                // Scroll to top of main content
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
                 });
-            }, 5000);
-        });
-
-        // Real-time synchronization system
-        function initializeRealTimeSync() {
-            // Listen for changes from other users
-            syncChannel.addEventListener('message', handleSyncMessage);
-            
-            // Listen for localStorage changes (cross-tab sync)
-            window.addEventListener('storage', handleStorageChange);
-            
-            // Periodic sync check
-            setInterval(checkForUpdates, 1000);
-            
-            // Heartbeat to show user is online
-            setInterval(sendHeartbeat, 5000);
-            
-            // Initial sync
-            lastSyncTimestamp = Date.now();
+                // Start emoji animation after entering
+                initializeEmojiAnimation();
+            }, 400);
         }
-
-        function handleSyncMessage(event) {
-            const { type, data, userId, timestamp } = event.data;
-            
-            if (userId === myUserId) return; // Ignore own messages
-            
-            switch(type) {
-                case 'photo_added':
-                    handleNewPhoto(data);
-                    break;
-                case 'message_added':
-                    handleNewMessage(data);
-                    break;
-                case 'photo_status_changed':
-                    handlePhotoStatusChange(data);
-                    break;
-                case 'user_online':
-                    onlineUsers.add(userId);
-                    updateOnlineCounter();
-                    break;
-                case 'user_offline':
-                    onlineUsers.delete(userId);
-                    updateOnlineCounter();
-                    break;
-                case 'admin_action':
-                    handleAdminAction(data);
-                    break;
-                case 'slideshow_control':
-                    handleSlideshowControl(data);
-                    break;
-            }
-        }
-
-        function handleStorageChange(event) {
-            if (event.key === 'weddingPhotos') {
-                globalPhotoDatabase = JSON.parse(event.newValue || '[]');
-                updateGallery();
-                updateSlideshow();
-                updateCounters();
-                updateAdminStats();
-                showSyncStatus('Fotos actualizadas desde otro dispositivo', 'syncing');
-            } else if (event.key === 'weddingMessages') {
-                globalMessageDatabase = JSON.parse(event.newValue || '[]');
-                updateMessagesDisplay();
-                showSyncStatus('Mensajes actualizados desde otro dispositivo', 'syncing');
-            }
-        }
-
-        function checkForUpdates() {
-            // Check if data has been updated by comparing timestamps
-            const currentPhotosString = localStorage.getItem('weddingPhotos');
-            const currentMessagesString = localStorage.getItem('weddingMessages');
-            
-            if (currentPhotosString) {
-                const currentPhotos = JSON.parse(currentPhotosString);
-                if (currentPhotos.length !== globalPhotoDatabase.length) {
-                    globalPhotoDatabase = currentPhotos;
-                    updateGallery();
-                    updateSlideshow();
-                    updateCounters();
-                    updateAdminStats();
-                }
-            }
-            
-            if (currentMessagesString) {
-                const currentMessages = JSON.parse(currentMessagesString);
-                if (currentMessages.length !== globalMessageDatabase.length) {
-                    globalMessageDatabase = currentMessages;
-                    updateMessagesDisplay();
-                }
-            }
-        }
-
-        function broadcastChange(type, data) {
-            const message = {
-                type,
-                data,
-                userId: myUserId,
-                timestamp: Date.now()
-            };
-            
-            syncChannel.postMessage(message);
-            
-            // Also trigger storage event for cross-tab sync
-            if (type === 'photo_added' || type === 'photo_status_changed') {
-                localStorage.setItem('weddingPhotos', JSON.stringify(globalPhotoDatabase));
-                localStorage.setItem('lastPhotoUpdate', Date.now().toString());
-            } else if (type === 'message_added') {
-                localStorage.setItem('weddingMessages', JSON.stringify(globalMessageDatabase));
-                localStorage.setItem('lastMessageUpdate', Date.now().toString());
-            }
-        }
-
-        function handleNewPhoto(photoData) {
-            // Check if photo already exists
-            const exists = globalPhotoDatabase.find(p => p.id === photoData.id);
-            if (!exists) {
-                globalPhotoDatabase.push(photoData);
-                updateGallery();
-                updateSlideshow();
-                updateCounters();
-                updateAdminStats();
-                showSyncStatus('Nueva foto recibida en tiempo real', 'success');
-                
-                // Show notification
-                showPhotoNotification(photoData);
-            }
-        }
-
-        function handleNewMessage(messageData) {
-            const exists = globalMessageDatabase.find(m => m.id === messageData.id);
-            if (!exists) {
-                globalMessageDatabase.unshift(messageData);
-                updateMessagesDisplay();
-                showSyncStatus('Nuevo mensaje recibido', 'success');
-                
-                // Show notification
-                showMessageNotification(messageData);
-            }
-        }
-
-        function handlePhotoStatusChange(data) {
-            const photo = globalPhotoDatabase.find(p => p.id === data.photoId);
-            if (photo) {
-                photo.status = data.status;
-                updateGallery();
-                updateSlideshow();
-                updateAdminStats();
-                showSyncStatus(`Foto ${data.status === 'approved' ? 'aprobada' : 'actualizada'}`, 'success');
-            }
-        }
-
-        function handleAdminAction(data) {
-            showSyncStatus(`Acción de admin: ${data.action}`, 'syncing');
-            
-            if (data.action === 'bulk_approve' || data.action === 'bulk_reject') {
-                // Refresh all data
+        
+        // Initialize emoji animation
+        function initializeEmojiAnimation() {
+            // Create initial burst of emojis
+            for (let i = 0; i < 8; i++) {
                 setTimeout(() => {
-                    globalPhotoDatabase = JSON.parse(localStorage.getItem('weddingPhotos') || '[]');
-                    updateGallery();
-                    updateSlideshow();
-                    updateAdminStats();
-                }, 500);
-            }
-        }
-
-        function handleSlideshowControl(data) {
-            if (data.action === 'start' && !isSlideshow) {
-                toggleSlideshow();
-                showSyncStatus('Slideshow iniciado por administrador', 'success');
-            } else if (data.action === 'stop' && isSlideshow) {
-                toggleSlideshow();
-                showSyncStatus('Slideshow pausado por administrador', 'success');
-            }
-        }
-
-        function announceUserPresence() {
-            broadcastChange('user_online', { userId: myUserId });
-            onlineUsers.add(myUserId);
-            updateOnlineCounter();
-        }
-
-        function sendHeartbeat() {
-            broadcastChange('user_online', { userId: myUserId });
-        }
-
-        function updateOnlineCounter() {
-            const counter = document.getElementById('onlineUsers');
-            if (counter) {
-                counter.textContent = onlineUsers.size;
-            }
-        }
-
-        function showPhotoNotification(photo) {
-            // Create floating notification
-            const notification = document.createElement('div');
-            notification.className = 'fixed top-20 right-4 bg-green-500 text-white p-4 rounded-xl shadow-lg z-50 transform translate-x-full transition-transform duration-300';
-            notification.innerHTML = `
-                <div class="flex items-center space-x-3">
-                    <img src="${photo.src}" alt="Nueva foto" class="w-12 h-12 object-cover rounded-lg">
-                    <div>
-                        <p class="font-semibold">Nueva foto de ${photo.name}</p>
-                        <p class="text-sm opacity-90">${photo.message || 'Sin mensaje'}</p>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.transform = 'translateX(0)';
-            }, 100);
-            
-            setTimeout(() => {
-                notification.style.transform = 'translateX(100%)';
-                setTimeout(() => notification.remove(), 300);
-            }, 4000);
-        }
-
-        function showMessageNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'fixed top-20 right-4 bg-blue-500 text-white p-4 rounded-xl shadow-lg z-50 transform translate-x-full transition-transform duration-300';
-            notification.innerHTML = `
-                <div>
-                    <p class="font-semibold">💌 Nuevo mensaje de ${message.name}</p>
-                    <p class="text-sm opacity-90">${message.text.substring(0, 50)}${message.text.length > 50 ? '...' : ''}</p>
-                </div>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.transform = 'translateX(0)';
-            }, 100);
-            
-            setTimeout(() => {
-                notification.style.transform = 'translateX(100%)';
-                setTimeout(() => notification.remove(), 300);
-            }, 4000);
-        }
-
-        // Admin Authentication
-        function showAdminLogin() {
-            document.getElementById('adminLoginScreen').classList.remove('hidden');
-        }
-
-        function closeAdminLogin() {
-            document.getElementById('adminLoginScreen').classList.add('hidden');
-        }
-
-        function adminLogin() {
-            const username = document.getElementById('adminUser').value;
-            const password = document.getElementById('adminPassword').value;
-            
-            if (username === 'admin' && password === 'aleandre2024') {
-                isAdminLoggedIn = true;
-                document.getElementById('adminLoginScreen').classList.add('hidden');
-                document.getElementById('nonAdminView').classList.add('hidden');
-                document.getElementById('adminDashboard').classList.remove('hidden');
-                updateAdminStats();
-                loadAdminPhotos();
-                showSyncStatus('Sesión de administrador iniciada', 'success');
-            } else {
-                alert('Credenciales incorrectas. Intenta nuevamente.');
-            }
-        }
-
-        function adminLogout() {
-            isAdminLoggedIn = false;
-            document.getElementById('adminDashboard').classList.add('hidden');
-            document.getElementById('nonAdminView').classList.remove('hidden');
-            selectedPhotos.clear();
-            showSyncStatus('Sesión cerrada', 'success');
-        }
-
-        // Admin Tab Management
-        function showAdminTab(tabName) {
-            currentAdminTab = tabName;
-            
-            // Hide all tabs
-            document.querySelectorAll('.admin-tab-content').forEach(tab => {
-                tab.classList.add('hidden');
-            });
-            
-            // Show selected tab
-            document.getElementById(`admin-${tabName}-tab`).classList.remove('hidden');
-            
-            // Update tab buttons
-            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
-                btn.classList.remove('bg-blue-100', 'text-blue-700');
-                btn.classList.add('text-gray-600');
-            });
-            
-            event.target.classList.add('bg-blue-100', 'text-blue-700');
-            event.target.classList.remove('text-gray-600');
-            
-            // Load tab content
-            switch(tabName) {
-                case 'photos':
-                    loadAdminPhotos();
-                    break;
-                case 'moderation':
-                    loadModerationTab();
-                    break;
-                case 'users':
-                    loadUsersTab();
-                    break;
-                case 'albums':
-                    loadAlbumsTab();
-                    break;
-                case 'analytics':
-                    loadAnalyticsTab();
-                    break;
-            }
-        }
-
-        // Admin Photos Management
-        function loadAdminPhotos() {
-            const photosList = document.getElementById('adminPhotosList');
-            photosList.innerHTML = '';
-            
-            globalPhotoDatabase.forEach(photo => {
-                const photoItem = document.createElement('div');
-                photoItem.className = `admin-photo-item bg-white rounded-xl p-4 shadow-md border-2 border-transparent cursor-pointer`;
-                photoItem.onclick = () => togglePhotoSelection(photo.id);
-                
-                const status = photo.status || 'approved';
-                const statusClass = `status-${status}`;
-                
-                photoItem.innerHTML = `
-                    <div class="flex items-center space-x-4">
-                        <div class="relative">
-                            <img src="${photo.src}" alt="Foto" class="w-20 h-20 object-cover rounded-lg">
-                            <div class="status-badge ${statusClass}">${getStatusLabel(status)}</div>
-                            <input type="checkbox" class="absolute top-2 left-2 w-4 h-4" ${selectedPhotos.has(photo.id) ? 'checked' : ''}>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-semibold text-gray-800">${photo.name}</h4>
-                            <p class="text-sm text-gray-600">${photo.message || 'Sin mensaje'}</p>
-                            <p class="text-xs text-gray-500">${formatDate(photo.timestamp)}</p>
-                        </div>
-                        <div class="flex space-x-2">
-                            <button onclick="approvePhoto('${photo.id}')" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm">
-                                ✅ Aprobar
-                            </button>
-                            <button onclick="rejectPhoto('${photo.id}')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">
-                                ❌ Rechazar
-                            </button>
-                            <button onclick="featurePhoto('${photo.id}')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm">
-                                ⭐ Destacar
-                            </button>
-                            <button onclick="deletePhoto('${photo.id}')" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm">
-                                🗑️ Eliminar
-                            </button>
-                        </div>
-                    </div>
-                `;
-                
-                photosList.appendChild(photoItem);
-            });
-            
-            updateBulkActions();
-        }
-
-        function togglePhotoSelection(photoId) {
-            if (selectedPhotos.has(photoId)) {
-                selectedPhotos.delete(photoId);
-            } else {
-                selectedPhotos.add(photoId);
+                    createFloatingEmoji();
+                }, i * 300);
             }
             
-            updateBulkActions();
-            loadAdminPhotos();
-        }
-
-        function updateBulkActions() {
-            const bulkActions = document.getElementById('bulkActions');
-            const selectedCount = document.getElementById('selectedCount');
-            
-            if (selectedPhotos.size > 0) {
-                bulkActions.classList.remove('hidden');
-                selectedCount.textContent = selectedPhotos.size;
-            } else {
-                bulkActions.classList.add('hidden');
-            }
-        }
-
-        function selectAllPhotos() {
-            globalPhotoDatabase.forEach(photo => {
-                selectedPhotos.add(photo.id);
-            });
-            loadAdminPhotos();
-        }
-
-        // Photo Actions
-        function approvePhoto(photoId) {
-            updatePhotoStatus(photoId, 'approved');
-            addModerationAction(`Foto aprobada - ID: ${photoId}`);
-        }
-
-        function rejectPhoto(photoId) {
-            updatePhotoStatus(photoId, 'rejected');
-            addModerationAction(`Foto rechazada - ID: ${photoId}`);
-        }
-
-        function featurePhoto(photoId) {
-            updatePhotoStatus(photoId, 'featured');
-            addModerationAction(`Foto destacada - ID: ${photoId}`);
-        }
-
-        function deletePhoto(photoId) {
-            if (confirm('¿Estás seguro de que quieres eliminar esta foto permanentemente?')) {
-                globalPhotoDatabase = globalPhotoDatabase.filter(photo => photo.id !== photoId);
-                localStorage.setItem('weddingPhotos', JSON.stringify(globalPhotoDatabase));
-                addModerationAction(`Foto eliminada - ID: ${photoId}`);
-                loadAdminPhotos();
-                updateAdminStats();
-                updateGallery();
-            }
-        }
-
-        function updatePhotoStatus(photoId, status) {
-            const photo = globalPhotoDatabase.find(p => p.id === photoId);
-            if (photo) {
-                photo.status = status;
-                localStorage.setItem('weddingPhotos', JSON.stringify(globalPhotoDatabase));
-                
-                // Broadcast status change to all users
-                broadcastChange('photo_status_changed', { photoId, status });
-                
-                loadAdminPhotos();
-                updateAdminStats();
-            }
-        }
-
-        // Bulk Actions
-        function bulkApprove() {
-            selectedPhotos.forEach(photoId => {
-                updatePhotoStatus(photoId, 'approved');
-            });
-            addModerationAction(`${selectedPhotos.size} fotos aprobadas en lote`);
-            
-            // Broadcast bulk action
-            broadcastChange('admin_action', { action: 'bulk_approve', count: selectedPhotos.size });
-            
-            selectedPhotos.clear();
-        }
-
-        function bulkReject() {
-            selectedPhotos.forEach(photoId => {
-                updatePhotoStatus(photoId, 'rejected');
-            });
-            addModerationAction(`${selectedPhotos.size} fotos rechazadas en lote`);
-            
-            // Broadcast bulk action
-            broadcastChange('admin_action', { action: 'bulk_reject', count: selectedPhotos.size });
-            
-            selectedPhotos.clear();
-        }
-
-        function bulkFeature() {
-            selectedPhotos.forEach(photoId => {
-                updatePhotoStatus(photoId, 'featured');
-            });
-            addModerationAction(`${selectedPhotos.size} fotos destacadas en lote`);
-            
-            // Broadcast bulk action
-            broadcastChange('admin_action', { action: 'bulk_feature', count: selectedPhotos.size });
-            
-            selectedPhotos.clear();
-        }
-
-        function bulkDelete() {
-            if (confirm(`¿Estás seguro de que quieres eliminar ${selectedPhotos.size} fotos permanentemente?`)) {
-                globalPhotoDatabase = globalPhotoDatabase.filter(photo => !selectedPhotos.has(photo.id));
-                localStorage.setItem('weddingPhotos', JSON.stringify(globalPhotoDatabase));
-                addModerationAction(`${selectedPhotos.size} fotos eliminadas en lote`);
-                
-                // Broadcast bulk action
-                broadcastChange('admin_action', { action: 'bulk_delete', count: selectedPhotos.size });
-                
-                selectedPhotos.clear();
-                loadAdminPhotos();
-                updateAdminStats();
-                updateGallery();
-            }
-        }
-
-        function downloadSelectedPhotos() {
-            if (selectedPhotos.size === 0) {
-                alert('No hay fotos seleccionadas');
-                return;
-            }
-            
-            // In a real implementation, this would create a ZIP file
-            alert(`Se descargarían ${selectedPhotos.size} fotos seleccionadas. En una implementación real, se crearía un archivo ZIP.`);
-        }
-
-        // Moderation
-        function addModerationAction(action) {
-            const moderationAction = {
-                id: Date.now(),
-                action: action,
-                timestamp: new Date(),
-                admin: 'admin'
-            };
-            
-            moderationHistory.unshift(moderationAction);
-            localStorage.setItem('moderationHistory', JSON.stringify(moderationHistory));
-        }
-
-        function loadModerationTab() {
-            const pendingList = document.getElementById('pendingModerationList');
-            const historyList = document.getElementById('moderationHistory');
-            
-            // Load pending photos
-            const pendingPhotos = globalPhotoDatabase.filter(photo => photo.status === 'pending');
-            pendingList.innerHTML = '';
-            
-            pendingPhotos.forEach(photo => {
-                const item = document.createElement('div');
-                item.className = 'bg-white rounded-lg p-3 shadow-sm';
-                item.innerHTML = `
-                    <div class="flex items-center space-x-3">
-                        <img src="${photo.src}" alt="Foto" class="w-12 h-12 object-cover rounded">
-                        <div class="flex-1">
-                            <p class="font-medium text-sm">${photo.name}</p>
-                            <p class="text-xs text-gray-500">${formatDate(photo.timestamp)}</p>
-                        </div>
-                        <div class="flex space-x-1">
-                            <button onclick="approvePhoto('${photo.id}')" class="bg-green-500 text-white px-2 py-1 rounded text-xs">✅</button>
-                            <button onclick="rejectPhoto('${photo.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-xs">❌</button>
-                        </div>
-                    </div>
-                `;
-                pendingList.appendChild(item);
-            });
-            
-            // Load moderation history
-            historyList.innerHTML = '';
-            moderationHistory.slice(0, 10).forEach(action => {
-                const item = document.createElement('div');
-                item.className = 'bg-white rounded-lg p-3 shadow-sm';
-                item.innerHTML = `
-                    <p class="text-sm font-medium">${action.action}</p>
-                    <p class="text-xs text-gray-500">${formatDate(action.timestamp)}</p>
-                `;
-                historyList.appendChild(item);
-            });
-        }
-
-        // Users Management
-        function loadUsersTab() {
-            const usersList = document.getElementById('adminUsersList');
-            
-            // Generate user stats from photos
-            const userStats = {};
-            globalPhotoDatabase.forEach(photo => {
-                if (!userStats[photo.name]) {
-                    userStats[photo.name] = {
-                        name: photo.name,
-                        photoCount: 0,
-                        lastActivity: photo.timestamp,
-                        status: 'active'
-                    };
+            // Continue creating emojis periodically
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    createFloatingEmoji();
                 }
-                userStats[photo.name].photoCount++;
-                if (new Date(photo.timestamp) > new Date(userStats[photo.name].lastActivity)) {
-                    userStats[photo.name].lastActivity = photo.timestamp;
-                }
-            });
-            
-            usersList.innerHTML = '';
-            Object.values(userStats).forEach(user => {
-                const userItem = document.createElement('div');
-                userItem.className = 'bg-white rounded-xl p-6 shadow-md';
-                userItem.innerHTML = `
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h4 class="font-semibold text-gray-800">${user.name}</h4>
-                            <p class="text-sm text-gray-600">${user.photoCount} fotos subidas</p>
-                            <p class="text-xs text-gray-500">Última actividad: ${formatDate(user.lastActivity)}</p>
-                        </div>
-                        <div class="flex space-x-2">
-                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">Activo</span>
-                            <button onclick="blockUser('${user.name}')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">
-                                Bloquear
-                            </button>
-                        </div>
-                    </div>
-                `;
-                usersList.appendChild(userItem);
-            });
-        }
-
-        function blockUser(userName) {
-            if (confirm(`¿Estás seguro de que quieres bloquear a ${userName}?`)) {
-                addModerationAction(`Usuario bloqueado: ${userName}`);
-                alert(`Usuario ${userName} ha sido bloqueado`);
-            }
-        }
-
-        // Albums Management
-        function loadAlbumsTab() {
-            const albumsList = document.getElementById('adminAlbumsList');
-            
-            // Default albums
-            const defaultAlbums = [
-                { id: 1, name: 'Ceremonia', photoCount: globalPhotoDatabase.filter(p => p.momentType === 'ceremony').length, cover: null },
-                { id: 2, name: 'Fiesta', photoCount: globalPhotoDatabase.filter(p => p.momentType === 'party').length, cover: null },
-                { id: 3, name: 'Familia', photoCount: globalPhotoDatabase.filter(p => p.momentType === 'family').length, cover: null },
-                { id: 4, name: 'Destacadas', photoCount: globalPhotoDatabase.filter(p => p.status === 'featured').length, cover: null }
-            ];
-            
-            albumsList.innerHTML = '';
-            defaultAlbums.forEach(album => {
-                const albumItem = document.createElement('div');
-                albumItem.className = 'bg-white rounded-xl p-6 shadow-md';
-                albumItem.innerHTML = `
-                    <div class="aspect-square bg-gradient-to-br from-pink-100 to-purple-100 rounded-lg mb-4 flex items-center justify-center">
-                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
-                    </div>
-                    <h4 class="font-semibold text-gray-800 mb-2">${album.name}</h4>
-                    <p class="text-sm text-gray-600 mb-4">${album.photoCount} fotos</p>
-                    <button onclick="viewAlbum(${album.id})" class="w-full bg-purple-500 hover:bg-purple-600 text-white py-2 rounded-lg font-medium transition-all duration-300">
-                        Ver Álbum
-                    </button>
-                `;
-                albumsList.appendChild(albumItem);
-            });
-        }
-
-        function createNewAlbum() {
-            const albumName = prompt('Nombre del nuevo álbum:');
-            if (albumName) {
-                alert(`Álbum "${albumName}" creado exitosamente`);
-                loadAlbumsTab();
-            }
-        }
-
-        function viewAlbum(albumId) {
-            alert(`Abriendo álbum ID: ${albumId}`);
-        }
-
-        // Analytics
-        function loadAnalyticsTab() {
-            loadHourlyChart();
-            loadTopContributors();
-            loadGeneralStats();
-        }
-
-        function loadHourlyChart() {
-            const chart = document.getElementById('hourlyChart');
-            chart.innerHTML = '';
-            
-            // Generate sample hourly data
-            for (let i = 0; i < 24; i++) {
-                const height = Math.random() * 100 + 20;
-                const bar = document.createElement('div');
-                bar.className = 'bg-blue-500 rounded-t flex-1';
-                bar.style.height = height + '%';
-                bar.title = `${i}:00 - ${Math.floor(height/10)} fotos`;
-                chart.appendChild(bar);
-            }
-        }
-
-        function loadTopContributors() {
-            const container = document.getElementById('topContributors');
-            
-            // Calculate top contributors
-            const contributors = {};
-            globalPhotoDatabase.forEach(photo => {
-                contributors[photo.name] = (contributors[photo.name] || 0) + 1;
-            });
-            
-            const sorted = Object.entries(contributors)
-                .sort(([,a], [,b]) => b - a)
-                .slice(0, 5);
-            
-            container.innerHTML = '';
-            sorted.forEach(([name, count], index) => {
-                const item = document.createElement('div');
-                item.className = 'flex items-center justify-between bg-white rounded-lg p-3';
-                item.innerHTML = `
-                    <div class="flex items-center space-x-3">
-                        <span class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-sm">${index + 1}</span>
-                        <span class="font-medium">${name}</span>
-                    </div>
-                    <span class="text-green-600 font-bold">${count} fotos</span>
-                `;
-                container.appendChild(item);
-            });
-        }
-
-        function loadGeneralStats() {
-            const container = document.getElementById('generalStats');
-            
-            const stats = [
-                { label: 'Fotos por hora', value: Math.round(globalPhotoDatabase.length / 8) },
-                { label: 'Promedio por usuario', value: Math.round(globalPhotoDatabase.length / Object.keys(getUniqueUsers()).length) },
-                { label: 'Tasa de aprobación', value: '95%' },
-                { label: 'Tiempo promedio', value: '2.3 min' }
-            ];
-            
-            container.innerHTML = '';
-            stats.forEach(stat => {
-                const item = document.createElement('div');
-                item.className = 'bg-white rounded-lg p-4 text-center';
-                item.innerHTML = `
-                    <div class="text-2xl font-bold text-purple-600">${stat.value}</div>
-                    <div class="text-sm text-gray-600">${stat.label}</div>
-                `;
-                container.appendChild(item);
-            });
-        }
-
-        function getUniqueUsers() {
-            const users = {};
-            globalPhotoDatabase.forEach(photo => {
-                users[photo.name] = true;
-            });
-            return users;
-        }
-
-        // Admin Stats
-        function updateAdminStats() {
-            if (!isAdminLoggedIn) return;
-            
-            const totalPhotos = globalPhotoDatabase.length;
-            const approvedPhotos = globalPhotoDatabase.filter(p => p.status === 'approved' || !p.status).length;
-            const pendingPhotos = globalPhotoDatabase.filter(p => p.status === 'pending').length;
-            const activeUsers = Object.keys(getUniqueUsers()).length;
-            
-            document.getElementById('adminTotalPhotos').textContent = totalPhotos;
-            document.getElementById('adminApprovedPhotos').textContent = approvedPhotos;
-            document.getElementById('adminPendingPhotos').textContent = pendingPhotos;
-            document.getElementById('adminActiveUsers').textContent = activeUsers;
-        }
-
-        function initializeAdminData() {
-            // Initialize photo statuses if not set
-            globalPhotoDatabase.forEach(photo => {
-                if (!photo.status) {
-                    photo.status = 'approved';
-                }
-            });
-            localStorage.setItem('weddingPhotos', JSON.stringify(globalPhotoDatabase));
-        }
-
-        // Filters and Search
-        function filterAdminPhotos() {
-            const filter = document.getElementById('photoStatusFilter').value;
-            // Implementation would filter the photos list
-            loadAdminPhotos();
-        }
-
-        function searchAdminPhotos() {
-            const searchTerm = document.getElementById('photoSearchInput').value.toLowerCase();
-            // Implementation would search through photos
-            loadAdminPhotos();
-        }
-
-        // Utility Functions
-        function getStatusLabel(status) {
-            const labels = {
-                approved: 'Aprobada',
-                pending: 'Pendiente',
-                rejected: 'Rechazada',
-                featured: 'Destacada'
-            };
-            return labels[status] || 'Aprobada';
-        }
-
-        // Countdown timer
-        function startCountdown() {
-            function updateCountdown() {
-                const now = new Date().getTime();
-                const distance = weddingDate - now;
-
-                if (distance > 0) {
-                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                    document.getElementById('days').textContent = days;
-                    document.getElementById('hours').textContent = hours;
-                    document.getElementById('minutes').textContent = minutes;
-                    document.getElementById('seconds').textContent = seconds;
-                } else {
-                    document.getElementById('countdown').innerHTML = '<div class="countdown-item"><div class="text-3xl font-bold">¡HOY ES EL DÍA!</div><div class="text-sm opacity-80">💕</div></div>';
-                }
-            }
-
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-        }
-
-        // Navigation
-        function showSection(sectionName) {
-            document.querySelectorAll('.section-content').forEach(section => {
-                section.classList.add('hidden');
-            });
-            
-            document.getElementById(sectionName + '-section').classList.remove('hidden');
-            
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('bg-pink-600', 'text-white');
-                btn.classList.add('text-gray-300', 'bg-transparent');
-            });
-            
-            event.target.classList.add('bg-pink-600', 'text-white');
-            event.target.classList.remove('text-gray-300', 'bg-transparent');
-        }
-
-        // Floating hearts
-        function initializeFloatingHearts() {
-            setInterval(createFloatingHeart, 3000);
-        }
-
-        function createFloatingHeart() {
-            const hearts = ['💕', '💖', '💗', '💝', '💞', '🌸', '🌺'];
-            const heart = document.createElement('div');
-            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
-            heart.className = 'heart fixed text-3xl';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDelay = Math.random() * 2 + 's';
-            heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
-            
-            document.getElementById('floatingHearts').appendChild(heart);
-            
-            setTimeout(() => heart.remove(), 10000);
-        }
-
-        // Drag and drop
-        function setupDragAndDrop() {
-            const uploadZone = document.getElementById('uploadZone');
-            
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                uploadZone.addEventListener(eventName, preventDefaults, false);
-            });
-
-            function preventDefaults(e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-
-            ['dragenter', 'dragover'].forEach(eventName => {
-                uploadZone.addEventListener(eventName, () => uploadZone.classList.add('dragover'), false);
-            });
-
-            ['dragleave', 'drop'].forEach(eventName => {
-                uploadZone.addEventListener(eventName, () => uploadZone.classList.remove('dragover'), false);
-            });
-
-            uploadZone.addEventListener('drop', (e) => {
-                handleFiles(e.dataTransfer.files);
-            }, false);
-        }
-
-        // File handling
-        function handleFileSelect(event) {
-            handleFiles(event.target.files);
-        }
-
-        function handleFiles(files) {
-            selectedFiles = Array.from(files).filter(file => {
-                return file.type.startsWith('image/') && file.size <= 10 * 1024 * 1024;
-            });
-            
-            if (selectedFiles.length > 0) {
-                showPhotoPreview();
-            }
-        }
-
-        function showPhotoPreview() {
-            const previewContainer = document.getElementById('photoPreview');
-            const previewGrid = document.getElementById('previewGrid');
-            
-            previewGrid.innerHTML = '';
-            
-            selectedFiles.forEach((file, index) => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const previewItem = document.createElement('div');
-                    previewItem.className = 'relative group';
-                    previewItem.innerHTML = `
-                        <img src="${e.target.result}" class="w-full h-24 object-cover rounded-lg shadow-md">
-                        <button onclick="removePreviewPhoto(${index})" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 text-xs opacity-0 group-hover:opacity-100 transition-opacity">×</button>
-                    `;
-                    previewGrid.appendChild(previewItem);
-                };
-                reader.readAsDataURL(file);
-            });
-            
-            previewContainer.classList.remove('hidden');
-        }
-
-        function removePreviewPhoto(index) {
-            selectedFiles.splice(index, 1);
-            if (selectedFiles.length === 0) {
-                document.getElementById('photoPreview').classList.add('hidden');
-            } else {
-                showPhotoPreview();
-            }
-        }
-
-        // Upload photos
-        function uploadPhotos() {
-            if (selectedFiles.length === 0) {
-                alert('Por favor selecciona al menos una foto');
-                return;
-            }
-
-            const uploadBtn = document.getElementById('uploadBtn');
-            const uploadStatus = document.getElementById('uploadStatus');
-            const name = document.getElementById('uploaderName').value || 'Invitado';
-            const message = document.getElementById('photoMessage').value;
-            
-            uploadBtn.disabled = true;
-            uploadBtn.innerHTML = '<div class="shimmer">Subiendo fotos... ⏳</div>';
-            
-            showSyncStatus('Subiendo fotos...', 'syncing');
-            
-            // Simulate upload process
-            setTimeout(() => {
-                const newPhotos = [];
-                let processedFiles = 0;
-                
-                selectedFiles.forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const newPhoto = {
-                            id: Date.now() + Math.random(),
-                            src: e.target.result,
-                            name: name,
-                            message: message,
-                            timestamp: new Date(),
-                            syncTime: Date.now(),
-                            status: 'approved' // Auto-approve for demo
-                        };
-                        
-                        globalPhotoDatabase.push(newPhoto);
-                        newPhotos.push(newPhoto);
-                        processedFiles++;
-                        
-                        // When all files are processed, broadcast the changes
-                        if (processedFiles === selectedFiles.length) {
-                            // Save to localStorage
-                            localStorage.setItem('weddingPhotos', JSON.stringify(globalPhotoDatabase));
-                            
-                            // Broadcast each new photo to all users
-                            newPhotos.forEach(photo => {
-                                broadcastChange('photo_added', photo);
-                            });
-                            
-                            uploadStatus.innerHTML = `
-                                <div class="bg-green-100 border border-green-400 text-green-700 px-6 py-4 rounded-xl">
-                                    ¡${selectedFiles.length} foto(s) subida(s) exitosamente! ✨<br>
-                                    <small>Todos los invitados pueden verlas ahora mismo</small>
-                                </div>
-                            `;
-                            uploadStatus.classList.remove('hidden');
-                            
-                            updateGallery();
-                            updateSlideshow();
-                            updateCounters();
-                            updateAdminStats();
-                            showSyncStatus(`${selectedFiles.length} fotos compartidas con todos`, 'success');
-                            
-                            // Reset form
-                            selectedFiles = [];
-                            document.getElementById('photoPreview').classList.add('hidden');
-                            document.getElementById('uploaderName').value = '';
-                            document.getElementById('photoMessage').value = '';
-                            document.getElementById('fileInput').value = '';
-                            
-                            uploadBtn.disabled = false;
-                            uploadBtn.textContent = 'Subir Fotos 💕';
-                            
-                            setTimeout(() => uploadStatus.classList.add('hidden'), 5000);
-                        }
-                    };
-                    reader.readAsDataURL(file);
-                });
             }, 2000);
         }
-
-        // Gallery functions
-        function updateGallery() {
-            const photoGrid = document.getElementById('photoGrid');
-            photoGrid.innerHTML = '';
+        
+        // Wedding emojis array
+        const weddingEmojis = ['💍', '💒', '👰', '🤵', '💐', '🥂', '🎉', '💕', '❤️', '🌹', '🎊', '✨', '💖', '🎵', '💃', '🕺', '❤️', '💕', '💖', '💗', '💓', '💘', '💝', '💞', '💟', '❣️',  '💌', '💋', '💐', '📸', '🤍', '🕊️', '🌠', '🏩'];
+        
+        // Create floating emoji
+        function createFloatingEmoji() {
+            const emoji = document.createElement('div');
+            emoji.className = 'emoji-float';
+            emoji.textContent = weddingEmojis[Math.floor(Math.random() * weddingEmojis.length)];
+            emoji.style.left = Math.random() * 100 + '%';
+            emoji.style.bottom = '0px';
+            document.body.appendChild(emoji);
             
-            const approvedPhotos = globalPhotoDatabase.filter(photo => 
-                photo.status === 'approved' || !photo.status
-            );
-            
-            const sortedPhotos = [...approvedPhotos].sort((a, b) => b.syncTime - a.syncTime);
-            
-            sortedPhotos.forEach(photo => {
-                const photoCard = document.createElement('div');
-                photoCard.className = 'photo-card bg-white overflow-hidden relative new-item';
-                photoCard.innerHTML = `
-                    <img src="${photo.src}" alt="Foto de ${photo.name}" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300">
-                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-                            <h4 class="font-semibold text-lg">${photo.name}</h4>
-                            ${photo.message ? `<p class="text-sm opacity-90 mt-1">"${photo.message}"</p>` : ''}
-                            <p class="text-xs opacity-70 mt-2">${formatDate(photo.timestamp)}</p>
-                        </div>
-                    </div>
-                    ${isRecentItem(photo.syncTime) ? '<div class="absolute top-3 right-3 bg-green-500 text-white text-xs px-2 py-1 rounded-full font-medium animate-pulse">NUEVO</div>' : ''}
-                    ${photo.status === 'featured' ? '<div class="absolute top-3 left-3 bg-yellow-500 text-white text-xs px-2 py-1 rounded-full font-medium">⭐ DESTACADA</div>' : ''}
-                `;
-                photoGrid.appendChild(photoCard);
-            });
-        }
-
-        // Slideshow functions
-        function updateSlideshow() {
-            const container = document.getElementById('slideshowContainer');
-            
-            const approvedPhotos = globalPhotoDatabase.filter(photo => 
-                photo.status === 'approved' || !photo.status
-            );
-            
-            if (approvedPhotos.length === 0) return;
-            
-            container.innerHTML = '';
-            
-            approvedPhotos.sort((a, b) => b.syncTime - a.syncTime).forEach((photo, index) => {
-                const slide = document.createElement('div');
-                slide.className = `slide ${index === 0 ? 'active' : ''}`;
-                slide.innerHTML = `
-                    <img src="${photo.src}" alt="Foto de ${photo.name}">
-                    <div class="slide-caption">
-                        <h3 class="text-3xl font-bold mb-2">${photo.name}</h3>
-                        ${photo.message ? `<p class="text-lg opacity-90 mt-2">"${photo.message}"</p>` : ''}
-                        <p class="text-sm opacity-70 mt-3">${formatDate(photo.timestamp)}</p>
-                    </div>
-                `;
-                container.appendChild(slide);
-            });
-        }
-
-        function toggleSlideshow() {
-            const button = document.getElementById('slideshowToggle');
-            
-            if (isSlideshow) {
-                clearInterval(slideshowInterval);
-                button.textContent = '▶️ Iniciar Slideshow';
-                isSlideshow = false;
-                
-                // Broadcast slideshow control to all users
-                if (isAdminLoggedIn) {
-                    broadcastChange('slideshow_control', { action: 'stop' });
-                }
-            } else {
-                const approvedPhotos = globalPhotoDatabase.filter(photo => 
-                    photo.status === 'approved' || !photo.status
-                );
-                
-                if (approvedPhotos.length === 0) {
-                    alert('No hay fotos aprobadas para mostrar en el slideshow');
-                    return;
-                }
-                
-                slideshowInterval = setInterval(nextSlide, 4000);
-                button.textContent = '⏸️ Pausar Slideshow';
-                isSlideshow = true;
-                
-                // Broadcast slideshow control to all users
-                if (isAdminLoggedIn) {
-                    broadcastChange('slideshow_control', { action: 'start' });
-                }
-            }
-        }
-
-        function nextSlide() {
-            const slides = document.querySelectorAll('.slide');
-            if (slides.length === 0) return;
-            
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }
-
-        function toggleFullscreen() {
-            const container = document.getElementById('slideshowContainer');
-            
-            if (!document.fullscreenElement) {
-                container.requestFullscreen().catch(err => {
-                    alert('Error al entrar en pantalla completa: ' + err.message);
-                });
-            } else {
-                document.exitFullscreen();
-            }
-        }
-
-        // Messages functions
-        function addMessage() {
-            const name = document.getElementById('messageName').value;
-            const type = document.getElementById('messageType').value;
-            const text = document.getElementById('messageText').value;
-            
-            if (!name || !text) {
-                alert('Por favor completa tu nombre y mensaje');
-                return;
-            }
-            
-            const newMessage = {
-                id: Date.now() + Math.random(),
-                name: name,
-                type: type,
-                text: text,
-                timestamp: new Date(),
-                syncTime: Date.now()
-            };
-            
-            globalMessageDatabase.unshift(newMessage);
-            localStorage.setItem('weddingMessages', JSON.stringify(globalMessageDatabase));
-            
-            // Broadcast message to all users
-            broadcastChange('message_added', newMessage);
-            
-            updateMessagesDisplay();
-            showSyncStatus('Mensaje compartido con todos los invitados', 'success');
-            
-            // Clear form
-            document.getElementById('messageName').value = '';
-            document.getElementById('messageText').value = '';
-            
-            // Show success message
-            alert('¡Tu mensaje ha sido enviado y todos pueden verlo! 💕');
-        }
-
-        function updateMessagesDisplay() {
-            const container = document.getElementById('messagesContainer');
-            container.innerHTML = '';
-            
-            const typeColors = {
-                wish: 'from-pink-100 to-rose-100 border-pink-500',
-                memory: 'from-blue-100 to-indigo-100 border-blue-500',
-                advice: 'from-green-100 to-emerald-100 border-green-500',
-                congratulation: 'from-yellow-100 to-amber-100 border-yellow-500'
-            };
-            
-            const typeLabels = {
-                wish: 'Deseo de felicidad',
-                memory: 'Recuerdo especial',
-                advice: 'Consejo matrimonial',
-                congratulation: 'Felicitación'
-            };
-            
-            globalMessageDatabase.forEach(message => {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `bg-gradient-to-r ${typeColors[message.type]} p-6 rounded-2xl border-l-4 new-item`;
-                messageDiv.innerHTML = `
-                    <div class="flex justify-between items-start mb-3">
-                        <h4 class="font-bold text-gray-800 text-lg">${message.name}</h4>
-                        <div class="flex items-center space-x-2">
-                            <span class="text-sm text-gray-600 bg-white/60 px-3 py-1 rounded-full font-medium">${typeLabels[message.type]}</span>
-                            ${isRecentItem(message.syncTime) ? '<span class="text-xs bg-green-500 text-white px-2 py-1 rounded-full animate-pulse">NUEVO</span>' : ''}
-                        </div>
-                    </div>
-                    <p class="text-gray-700 text-base leading-relaxed">${message.text}</p>
-                    <p class="text-xs text-gray-500 mt-3">${formatDate(message.timestamp)}</p>
-                `;
-                container.appendChild(messageDiv);
-            });
-        }
-
-        // Utility functions
-        function updateCounters() {
-            const approvedPhotos = globalPhotoDatabase.filter(photo => 
-                photo.status === 'approved' || !photo.status
-            );
-            document.getElementById('photoCount').textContent = approvedPhotos.length;
-        }
-
-        function formatDate(date) {
-            return new Date(date).toLocaleString('es-ES', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-        }
-
-        function isRecentItem(syncTime) {
-            return Date.now() - syncTime < 30000; // 30 seconds
-        }
-
-        function showSyncStatus(message, type) {
-            const statusDiv = document.getElementById('syncStatus');
-            const textSpan = document.getElementById('syncText');
-            const iconSpan = document.getElementById('syncIcon');
-            
-            textSpan.textContent = message;
-            
-            statusDiv.className = 'glass-effect px-4 py-2 rounded-full text-sm font-medium transition-all duration-300';
-            
-            switch(type) {
-                case 'success':
-                    statusDiv.classList.add('text-green-700');
-                    iconSpan.textContent = '✅';
-                    break;
-                case 'syncing':
-                    statusDiv.classList.add('text-blue-700');
-                    iconSpan.textContent = '🔄';
-                    break;
-                case 'error':
-                    statusDiv.classList.add('text-red-700');
-                    iconSpan.textContent = '❌';
-                    break;
-            }
-            
-            statusDiv.style.transform = 'translateX(0)';
-            statusDiv.style.opacity = '1';
-            
+            // Remove emoji after animation
             setTimeout(() => {
-                statusDiv.style.transform = 'translateX(100%)';
-                statusDiv.style.opacity = '0';
-            }, 3000);
+                emoji.remove();
+            }, 4000);
         }
-
-
-
-        function loadSampleData() {
-            // Start with completely empty databases
-            if (globalPhotoDatabase.length === 0) {
-                globalPhotoDatabase = [];
-                localStorage.setItem('weddingPhotos', JSON.stringify(globalPhotoDatabase));
-            }
-            
-            if (globalMessageDatabase.length === 0) {
-                globalMessageDatabase = [];
-                localStorage.setItem('weddingMessages', JSON.stringify(globalMessageDatabase));
-            }
-            
-            updateGallery();
-            updateSlideshow();
-            updateMessagesDisplay();
-        }
+        
+        // Page initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Welcome screen is shown by default
+            // Emojis will start when user enters the site
+        });
     </script>
-    <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-  import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyA4Zk94J47TUY5qHqn_2yHEVqg_HgBP1Mo",
-    authDomain: "boda-ale-andre.firebaseapp.com",
-    projectId: "boda-ale-andre",
-    storageBucket: "boda-ale-andre.appspot.com", // ✅ corregido
-    messagingSenderId: "127085961727",
-    appId: "1:127085961727:web:fe0bef66326ddeeedf87ca",
-    measurementId: "G-SR3QJR4ZCC"
-  };
-
-  // Inicializar Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const storage = getStorage(app);
-
-  // 📸 Función para subir foto
-  async function uploadPhoto(file, userName, message) {
-    const storageRef = ref(storage, "photos/" + Date.now() + "-" + file.name);
-    await uploadBytes(storageRef, file);
-
-    const url = await getDownloadURL(storageRef);
-    await addDoc(collection(db, "photos"), {
-      name: userName || "Invitado",
-      message: message || "",
-      url,
-      timestamp: serverTimestamp()
-    });
-  }
-
-  // 👀 Escuchar fotos en tiempo real
-  function listenPhotos() {
-    const q = query(collection(db, "photos"), orderBy("timestamp", "desc"));
-    onSnapshot(q, (snapshot) => {
-      const photos = snapshot.docs.map(doc => doc.data());
-      renderGallery(photos);
-    });
-  }
-
-  // 🎨 Renderizar galería
-  function renderGallery(photos) {
-    const grid = document.getElementById("photoGrid");
-    grid.innerHTML = "";
-    photos.forEach(p => {
-      const card = document.createElement("div");
-      card.className = "photo-card";
-      card.innerHTML = `
-        <img src="${p.url}" class="w-full h-full object-cover" />
-        <div class="absolute bottom-0 bg-black/60 text-white w-full p-2 text-sm">
-          <strong>${p.name}</strong> ${p.message}
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-  }
-
-  // Iniciar listeners al cargar la página
-  document.addEventListener("DOMContentLoaded", () => {
-    listenPhotos();
-  });
-
-  // Conectar con tu botón de subir (ejemplo)
-  window.uploadPhotos = async function () {
-    const fileInput = document.getElementById("fileInput");
-    const userName = document.getElementById("uploaderName").value;
-    const message = document.getElementById("photoMessage").value;
-
-    for (const file of fileInput.files) {
-      await uploadPhoto(file, userName, message);
-    }
-
-    alert("Fotos subidas ✅");
-    fileInput.value = "";
-  };
-</script>
-
 </body>
 </html>
